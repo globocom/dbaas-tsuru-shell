@@ -52,7 +52,7 @@ def dbaas_shell(app):
     env = {i['name']: i['value'] for i in data}
     dbs = list(discover_dbs(env))
 
-    print('What the database you want to open the shell: ')
+    print('Which database do you want to open shell: ')
     for i, db in enumerate(dbs):
         print('%d - %s' % (i, db['name']))
 
