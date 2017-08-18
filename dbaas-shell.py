@@ -5,8 +5,12 @@ import argparse
 import os
 import json
 import sys
-import urlparse
 import subprocess
+
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib.parse import urlparse
 
 try:
     from urllib2 import Request, urlopen, HTTPError
@@ -52,7 +56,7 @@ def dbaas_shell(app):
     for i, db in enumerate(dbs):
         print('%d - %s' % (i, db['name']))
 
-    pos = int(raw_input())
+    pos = int(input())
     open_shell(dbs[pos])
 
 
@@ -81,7 +85,7 @@ def discover_instances(tsuru_services):
 
 
 def discover_redis_sentinel_hosts(name, sentinel_endpoint):
-    url = urlparse.urlparse(sentinel_endpoint)
+    url = urlparse(sentinel_endpoint)
     hosts = url.netloc.split('@', 1)[1].split(',')
 
     for host in hosts:
@@ -96,7 +100,7 @@ def discover_redis_sentinel_hosts(name, sentinel_endpoint):
         }
 
 def discover_mongodb_hosts(name, endpoint):
-    url = urlparse.urlparse(endpoint)
+    url = urlparse(endpoint)
     hosts = url.netloc.split('@', 1)[1].split(',')
 
     for host in hosts:
