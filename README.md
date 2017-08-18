@@ -1,10 +1,10 @@
-# Tsuru unit healthcheck plugin
+# Tsuru dbass shell plugin
 
 Simple tsuru plugin to easy open shell on your bound databases.
 
 ## Install
 
-    tsuru plugin-install unit-healthcheck https://raw.githubusercontent.com/wpjunior/tsuru-unit-healthcheck/master/unit-healthcheck.py
+    tsuru plugin-install dbaas-shell https://gitlab.globoi.com/backstage/tsuru-dbaas-shell/raw/master/dbaas-shell.py
 
 ## Use
 
