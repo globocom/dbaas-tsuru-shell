@@ -44,7 +44,7 @@ def dbaas_shell(app):
         return
 
     if resp.code != 200:
-        logging.error('Failed to get enviroment variables: %d', resp.code)
+        logging.error('Failed to get environment variables: %d', resp.code)
         return
 
     data = json.loads(resp.read().decode('utf-8'))
