@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-import logging
 import argparse
-import os
 import json
+import logging
+import os
 import subprocess
 
 try:
