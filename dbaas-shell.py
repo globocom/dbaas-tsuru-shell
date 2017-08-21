@@ -4,7 +4,6 @@ import logging
 import argparse
 import os
 import json
-import sys
 import subprocess
 
 try:
@@ -13,9 +12,9 @@ except ImportError:
     from urllib.parse import urlparse
 
 try:
-    from urllib2 import Request, urlopen, HTTPError
+    from urllib2 import Request, urlopen
 except ImportError:
-    from urllib.request import Request, urlopen, HTTPError
+    from urllib.request import Request, urlopen
 
 
 TSURU_TARGET = os.environ['TSURU_TARGET']
