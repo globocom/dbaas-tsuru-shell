@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 
-import logging
 import argparse
-import os
 import json
-import sys
+import logging
+import os
 import subprocess
 
 try:
@@ -13,9 +12,9 @@ except ImportError:
     from urllib.parse import urlparse
 
 try:
-    from urllib2 import Request, urlopen, HTTPError
+    from urllib2 import Request, urlopen
 except ImportError:
-    from urllib.request import Request, urlopen, HTTPError
+    from urllib.request import Request, urlopen
 
 
 TSURU_TARGET = os.environ['TSURU_TARGET']
@@ -45,7 +44,7 @@ def dbaas_shell(app):
         return
 
     if resp.code != 200:
-        logging.error('Failed to get enviroment variables: %d', resp.code)
+        logging.error('Failed to get environment variables: %d', resp.code)
         return
 
     data = json.loads(resp.read().decode('utf-8'))
