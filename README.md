@@ -1,10 +1,10 @@
-# Tsuru dbass shell plugin
+# Tsuru dbaas shell plugin
 
 Simple tsuru plugin to easy open shell on your bound databases.
 
 ## Install
 
-    tsuru plugin-install dbaas-shell https://gitlab.globoi.com/backstage/tsuru-dbaas-shell/raw/master/dbaas-shell.py
+    tsuru plugin-install dbaas-shell https://raw.githubusercontent.com/globocom/dbaas-tsuru-shell/master/dbaas-shell.py
 
 ## Use
 
