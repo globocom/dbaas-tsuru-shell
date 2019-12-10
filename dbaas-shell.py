@@ -74,9 +74,12 @@ def discover_dbs(env):
             for db in discover_mongodb_hosts(name, envs['DBAAS_MONGODB_ENDPOINT']):
                 yield db
 
+        elif 'DBAAS_REDIS_ENDPOINT' in envs:
+            yield discover_single_redis(name, envs['DBAAS_REDIS_ENDPOINT'])
+
 
 def discover_instances(tsuru_services):
-    possible_services = ['tsuru-dbaas', 'tsuru-dbaas-dev']
+    possible_services = ['tsuru-dbaas', 'tsuru-dbaas-dev', 'tsuru-dbaas-qa2']
 
     for service in possible_services:
         for item in tsuru_services.get(service, []):
@@ -97,6 +100,20 @@ def discover_redis_sentinel_hosts(name, sentinel_endpoint):
             'password': url.password,
             'hostname': hostname,
         }
+
+
+def discover_single_redis(name, endpoint):
+    url = urlparse(endpoint)
+    host = url.netloc.split('@', 1)[1]
+    pair = host.split(':', 1)
+    hostname = pair[0]
+
+    return {
+        'name': 'redis: %s via %s' % (name, hostname),
+        'type': 'redis',
+        'password': url.password,
+        'hostname': hostname,
+    }
 
 def discover_mongodb_hosts(name, endpoint):
     url = urlparse(endpoint)
