@@ -77,6 +77,9 @@ def discover_dbs(env):
         elif 'DBAAS_REDIS_ENDPOINT' in envs:
             yield discover_single_redis(name, envs['DBAAS_REDIS_ENDPOINT'])
 
+        elif 'DBAAS_MYSQL_ENDPOINT' in envs:
+            yield discover_single_mysql(name, envs)
+
 
 def discover_instances(tsuru_services):
     possible_services = ['tsuru-dbaas', 'tsuru-dbaas-dev', 'tsuru-dbaas-qa2']
@@ -130,6 +133,17 @@ def discover_mongodb_hosts(name, endpoint):
         }
 
 
+def discover_single_mysql(name, env):
+    host = env['DBAAS_MYSQL_HOSTS']
+    return {
+        'name': 'mysql: %s via %s' % (name, host),
+        'type': 'mysql',
+        'username': env['DBAAS_MYSQL_USER'],
+        'password': env['DBAAS_MYSQL_PASSWORD'],
+        'hostname': host,
+    }
+
+
 def open_shell(db):
     if db['type'] == 'redis':
         args = [
@@ -150,6 +164,8 @@ def open_shell(db):
             db['password'],
         ]
 
+
+    print(' '.join(args))
     subprocess.call(args)
 
 
