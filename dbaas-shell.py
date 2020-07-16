@@ -134,13 +134,22 @@ def discover_mongodb_hosts(name, endpoint):
 
 
 def discover_single_mysql(name, env):
+    url = urlparse(env['DBAAS_MYSQL_ENDPOINT'])
+    userhostparts = url.netloc.split('@', 1)
+    userpassword = userhostparts[0]
+    user, password = userpassword.split(':', 1)
+    host = userhostparts[1]
+    pair = host.split(':', 1)
+    hostname = pair[0]
+    database = url.path.lstrip('/')
     host = env['DBAAS_MYSQL_HOSTS']
     return {
-        'name': 'mysql: %s via %s' % (name, host),
+        'name': 'mysql: %s via %s' % (name, hostname),
         'type': 'mysql',
-        'username': env['DBAAS_MYSQL_USER'],
-        'password': env['DBAAS_MYSQL_PASSWORD'],
-        'hostname': host,
+        'username': user,
+        'password': password,
+        'hostname': hostname,
+        'database': database,
     }
 
 
@@ -162,6 +171,18 @@ def open_shell(db):
             db['username'],
             '-p',
             db['password'],
+        ]
+
+    elif db['type'] == 'mysql':
+        args = [
+            'mysql',
+            '-h',
+            db['hostname'],
+            '-u',
+            db['username'],
+            '-p',
+            db['password'],
+            db['database'],
         ]
 
 
